@@ -29,6 +29,7 @@ You can use the Wikipedia API to find an article from it's ID: <https://de.wikip
 Database of all intrawiki/internal links.
 
 Columns:
+
 | Name               | Meaning                                                                      |
 |--------------------|------------------------------------------------------------------------------|
 |`pl_from`           | `page_id` of the page containing the link                                    |
@@ -42,6 +43,7 @@ Table documentation: <https://www.mediawiki.org/wiki/Manual:Pagelinks_table>
 Database of all redirect pages.
 
 Columns:
+
 | Name               | Meaning                                                          |
 |--------------------|------------------------------------------------------------------|
 |`rd_from`           | `page_id` of the page redirect page                              |
@@ -54,6 +56,7 @@ Table documentation: <https://www.mediawiki.org/wiki/Manual:Redirect_table>
 Database of all wiki pages.
 
 Columns:
+
 | Name               | Meaning                                          |
 |--------------------|--------------------------------------------------|
 |`page_id`           | ID of the page                                   |
