@@ -24,7 +24,8 @@ to load the graph into memory.
 You can use the Wikipedia API to find an article from it's ID: <https://de.wikipedia.org/w/api.php?action=query&prop=info&pageids=3034015&inprop=url>.
 
 ## Files
-### pagelinks.out
+### WikiUtils output
+#### `pagelinks.out`
 Database of all intrawiki/internal links.
 
 Columns:
@@ -37,7 +38,7 @@ Columns:
 
 Table documentation: <https://www.mediawiki.org/wiki/Manual:Pagelinks_table>
 
-### redirects.out
+#### `redirects.out`
 Database of all redirect pages.
 
 Columns:
@@ -49,7 +50,7 @@ Columns:
 
 Table documentation: <https://www.mediawiki.org/wiki/Manual:Redirect_table>
 
-### pages.out
+#### `pages.out`
 Database of all wiki pages.
 
 Columns:
@@ -60,4 +61,17 @@ Columns:
 |`page_title`        | Title of the page                                |
 
 Table documentation: <https://www.mediawiki.org/wiki/Manual:Page_table>
+
+### Prerpoccessed files
+#### `pages_preprocessed.out`
+Preprocessed `pages.out` file containing only article pages (with namespace 0) and only
+the page id and name. Also doesn't contain redirecting pages.
+
+Built from `preproccess_files.py`.
+
+#### `graph.pickle`
+The graph representing links between pages. This is a pickle of a [blist](https://pypi.org/project/blist/)
+where `list[ID]` ist a `set` containing the `IDs` of all the pages to which the page with `ID` links.
+
+Built from `preproccess_files.py`.
 
