@@ -11,15 +11,14 @@ It can also be used to find pages that need the longest link-chains to a given p
   - `python3 parse_mysqldump.py <pages-dump>.sql.gz page pages.out -c 0124`
   - `python3 parse_mysqldump.py <redirect-dump>.sql.gz redirect redirect.out`
   - `python3 parse_mysqldump.py <pagelinks-dump>.sql.gz pagelinks pagelinks.out`
-  - This also decodes the page-titles to proper UTF-8 strings
 - Filter out non-article pages and create the link-graph: `./preprocess_files.py`
 - Now you can run `./analyzer.py`
 
 ## Usage
 Run `./analyzer.py -h` for help.
 
-If you aren't just showing the help it will most likely take some time (a few minutes or more)
-to load the graph file and build up the graph.
+If you aren't just showing the help it will most likely take some time (a minute or more, depending on the wiki)
+to load the graph into memory.
 
 ## Debugging tips
 You can use the Wikipedia API to find an article from it's ID: <https://de.wikipedia.org/w/api.php?action=query&prop=info&pageids=3034015&inprop=url>.
@@ -62,6 +61,3 @@ Columns:
 
 Table documentation: <https://www.mediawiki.org/wiki/Manual:Page_table>
 
-### graph.txt
-Linkgraph between pages. The first column is the id of the origin pages
-and the second the id of the target pages.
