@@ -1,3 +1,3 @@
-data
-WikiUtils
-.mypy_cache
+/data
+/target
+**/*.rs.bk

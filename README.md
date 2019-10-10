@@ -3,6 +3,11 @@ This is a program to find the shortest link chains between two wikipedia pages.
 
 It can also be used to find pages that need the longest link-chains to a given page.
 
+## Get the database
+- https://dumps.wikimedia.org/
+- Choose a wiki e.g. "enwiki" (english wikipedia) or "dewiki" (german wikipedia)
+- Download page.sql.gz, pagelinks.sql.gz and redirect.sql.gz
+
 ## Setup
 - Install requirements with `pip3 install -r requirements` (may require root)
 - Get the `pages`, `redirect` and `pagelinks` tables from [here](https://dumps.wikimedia.org/).
@@ -77,4 +82,3 @@ The graph representing links between pages. This is a pickle of a [blist](https:
 where `list[ID]` ist a `set` containing the `IDs` of all the pages to which the page with `ID` links.
 
 Built from `preproccess_files.py`.
-
