@@ -119,7 +119,7 @@ impl Main<'_> {
                     let links = &self.graph().graph[&page];
                     println!("{} links:", links.len());
                     for link in links {
-                        println!("{}", self.id_to_title[&link]);
+                        println!("{}", self.id_to_title[link]);
                     }
                 }
                 "path" => {
