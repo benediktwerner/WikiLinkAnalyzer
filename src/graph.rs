@@ -11,7 +11,7 @@ impl Graph {
     pub fn load(reverse: bool) -> Graph {
         let graph_file = if reverse {
             println!("Loading reverse graph ..");
-                crate::GRAPH_REVERSE
+            crate::GRAPH_REVERSE
         } else {
             println!("Loading graph ..");
             crate::GRAPH

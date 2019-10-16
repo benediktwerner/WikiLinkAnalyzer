@@ -3,6 +3,7 @@ use regex::Regex;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::{BufReader, BufWriter};
+use std::path::Path;
 
 macro_rules! _table_regex {
     ($head:ident, $($tail:ident),+) => {
@@ -80,7 +81,7 @@ impl Table {
     }
 }
 
-fn extract(table: Table, path: &str) {
+fn extract(table: Table, path: &Path) {
     println!("Extracting table '{}' ...", table.name());
 
     let file = File::open(path).unwrap();
@@ -133,9 +134,14 @@ pub fn ensure_extracted() -> Result<(), ()> {
         if !crate::file_exists(table.target_file()) {
             let name = format!("-{}.sql.gz", table.name());
             let data_dir = std::fs::read_dir("data").unwrap();
-            let mut files = data_dir
-                .map(|entry| entry.unwrap().file_name().into_string().unwrap())
-                .filter(|fname| fname.ends_with(&name));
+            let mut files = data_dir.filter_map(|entry| {
+                let entry = entry.unwrap();
+                if entry.file_name().into_string().unwrap().ends_with(&name) {
+                    Some(entry.path())
+                } else {
+                    None
+                }
+            });
 
             if let Some(file) = files.next() {
                 if files.next().is_some() {
