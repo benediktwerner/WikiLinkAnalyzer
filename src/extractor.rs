@@ -98,33 +98,36 @@ fn extract(table: Table, path: &Path) {
     let namespace_rows = table.namespace_rows();
 
     for line in reader.lines() {
-        let line = line.unwrap();
-        if line.starts_with(&line_start) {
-            let mut iter = line.split(" VALUES ");
-            let values = iter.nth(1).unwrap();
-            let iter = values[1..values.len() - 2].split("),("); // Problem: (362495,0,'Seesterne_(Klasse),(Art),(Gattung)',101)
-            for val in iter {
-                let val = val.replace("\\xe2\\x80\\x93", "-");
-                let captures = regex.captures(&val);
-                let captures = match captures {
-                    Some(c) => c,
-                    None => {
-                        println!("Failed to parse: '{}'", val);
+        if let Ok(line) = line {
+            if line.starts_with(&line_start) {
+                let mut iter = line.split(" VALUES ");
+                let values = iter.nth(1).unwrap();
+                let iter = values[1..values.len() - 2].split("),("); // Problem: (362495,0,'Seesterne_(Klasse),(Art),(Gattung)',101)
+                for val in iter {
+                    let val = val.replace("\\xe2\\x80\\x93", "-");
+                    let captures = regex.captures(&val);
+                    let captures = match captures {
+                        Some(c) => c,
+                        None => {
+                            println!("Failed to parse: '{}'", val);
+                            continue;
+                        }
+                    };
+                    if namespace_rows.iter().any(|i| &captures[i + 1] != "0") {
                         continue;
                     }
-                };
-                if namespace_rows.iter().any(|i| &captures[i + 1] != "0") {
-                    continue;
-                }
-                for &i in &rows {
-                    if i == 0 {
-                        write!(writer, "{}", &captures[i + 1]).unwrap();
-                    } else {
-                        write!(writer, "\t{}", &captures[i + 1]).unwrap();
+                    for &i in &rows {
+                        if i == 0 {
+                            write!(writer, "{}", &captures[i + 1]).unwrap();
+                        } else {
+                            write!(writer, "\t{}", &captures[i + 1]).unwrap();
+                        }
                     }
+                    writeln!(writer).unwrap();
                 }
-                writeln!(writer).unwrap();
             }
+        } else {
+            println!("Skipped line with invalid UTF-8");
         }
     }
 }
