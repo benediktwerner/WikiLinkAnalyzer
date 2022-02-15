@@ -24,7 +24,7 @@ $ ./target/debug/wiki-analyzer
 
 ## Setup
 - Goto <https://dumps.wikimedia.org/>
-- Choose a wiki e.g. "enwiki" for english wikipedia or "dewiki" for german wikipedia
+- Choose a wiki e.g. "enwiki" for English Wikipedia or "dewiki" for German Wikipedia
 - Download the table dumps for the tables `page`, `pagelinks` and `redirect` as `.sql.gz` archives
 - Place them in the `data` directory (relative to the directory you run the command in)
 - The analyzer will automatically extract and preprocess these files on the first run
